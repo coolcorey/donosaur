@@ -1,0 +1,19 @@
+{
+  "name": "donovue",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.3",
+    "minigrid": "~3.0.5",
+    "bootstrap3-typeahead": "~4.0.1",
+    "nprogress": "~0.2.0",
+    "gridster-js": "~0.7.0"
+  }
+}
