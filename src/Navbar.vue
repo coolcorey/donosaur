@@ -1,4 +1,7 @@
 <style scoped>
+.navbar-brand {
+  margin-right: 0px !important;
+}
 
 .nav-item-active {
     color: white !important;
@@ -12,37 +15,24 @@
     color: rgba(255, 255, 255, 0.3);
 }
 
-@media screen and (min-width:768px) {
-    .navbar-brand-centered {
-        position: absolute;
-        left: 50%;
-        display: block;
-        width: 160px;
-        text-align: center;
-        background-color: #eee;
-    }
-    .navbar>.container .navbar-brand-centered,
-    .navbar>.container-fluid .navbar-brand-centered {
-        margin-left: -80px;
-    }
-}
-
 </style>
 
 <template>
 
 <div>
     <nav class="navbar navbar-light navbar-fixed-top bg-faded">
+      <div class="container">
         <a class="navbar-brand" href="#">
             <img style="height:48px;" src="logo.png" />
         </a>
-        <div class="nav navbar-nav pull-xs-right" style="padding-top: 14px;padding-right:10px" v-if="!profile">
+        <div class="nav navbar-nav pull-xs-right" style="padding-top: 14px;" v-if="!profile">
             <a class="nav-item nav-link" style="margin-right:10px;" v-link="{ path: '/search', activeClass: 'nav-item-active'}">Search <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" v-link="{ path: '/about' , activeClass: 'nav-item-active'}">About</a>
         </div>
         <div class="nav navbar-nav pull-xs-right" style="padding-top:15px;padding-right:10px" v-else>
             <img src="https://envul.com/img/donate.png" style="height: 36px;" />
         </div>
+      </div>
     </nav>
 </div>
 
