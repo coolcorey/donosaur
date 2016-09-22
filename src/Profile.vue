@@ -1,5 +1,7 @@
 <style scoped>
 
+
+
 .gridster-box > div {
     height: 100%;
 }
@@ -38,8 +40,8 @@ li {
 
 <div>
     <div>
-        <h1 style="color:white;display:inline;" v-if="data.meta">{{data.meta.NAME|toTitleCase}}</h1>
         <span class="tag tag-info pull-xs-right">{{data.doctype}}</span>
+        <h1 class="truncate" style="color:white;" v-if="data.meta">{{data.meta.NAME|toTitleCase}}</h1>
     </div>
     <div class="gridster">
         <ul>

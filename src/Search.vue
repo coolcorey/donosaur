@@ -17,12 +17,7 @@
     background-color: transparent;
 }
 
-.truncate {
-    width: 250px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+
 
 .socialtext {
     font-size: 75%;
@@ -183,7 +178,7 @@ export default {
                 this.noneFound = false;
             }
             if (query.sample === true) {
-                this.$http.get('api/getSamples').then((response) => {
+                this.$http.get('http://donosaur.org/api/getSamples').then((response) => {
                     // success callback
                     //console.log(response)
                     NProgress.done();
@@ -194,7 +189,7 @@ export default {
                 });
             } else {
                 delete query.sample;
-                this.$http.get("api/getResults?q=" + encodeURIComponent(JSON.stringify(query)) + "&p=" + this.page).then((response) => {
+                this.$http.get("http://donosaur.org/api/getResults?q=" + encodeURIComponent(JSON.stringify(query)) + "&p=" + this.page).then((response) => {
                     console.log(response);
                     NProgress.done();
                     this.updateResults(response.data);

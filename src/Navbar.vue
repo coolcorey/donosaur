@@ -29,8 +29,8 @@
             <a class="nav-item nav-link" style="margin-right:10px;" v-link="{ path: '/search', activeClass: 'nav-item-active'}">Search <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" v-link="{ path: '/about' , activeClass: 'nav-item-active'}">About</a>
         </div>
-        <div class="nav navbar-nav pull-xs-right" style="padding-top:15px;padding-right:10px" v-else>
-            <img src="https://envul.com/img/donate.png" style="height: 36px;" />
+        <div class="nav navbar-nav pull-xs-right" style="padding-top:17px;" v-else>
+            <img src="https://envul.com/img/donate.png" style="height: 27px;" />
         </div>
       </div>
     </nav>

@@ -4,6 +4,7 @@
 .tab-input{
   height: 30px;
   margin-top: 6px;
+  max-width: 100px;
 }
 </style>
 
@@ -137,7 +138,7 @@ export default {
     },
     filters:{
       'searchFilter': function(rows, search){
-        if(!rows || !search) return {};
+        if(!rows) return {};
         var keys = Object.keys(rows);
         if(!search || search == ''){
           return rows;
