@@ -13,6 +13,7 @@ app.use(function(req, res, next) {
 var url = 'mongodb://localhost:27017/donosaur';
 
 var perpage = 50;
+var maxWords = 3;
 
 var nteeTypes = {
   "Arts and Culture": ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18", "A19", "A20", "A21", "A22", "A23", "A24", "A25", "A26", "A27", "A28", "A29", "A30", "A31", "A32", "A33", "A34", "A35", "A36", "A37", "A38", "A39", "A40", "A41", "A42", "A43", "A44", "A45", "A46", "A47", "A48", "A49", "A50", "A51", "A52", "A53", "A54", "A55", "A56", "A57", "A58", "A59", "A60", "A61", "A62", "A63", "A64", "A65", "A66", "A67", "A68", "A69", "A70", "A71", "A72", "A73", "A74", "A75", "A76", "A77", "A78", "A79", "A80", "A81", "A82", "A83", "A84", "A85", "A86", "A87", "A88", "A89", "A90", "A91", "A92", "A93", "A94", "A95", "A96", "A97", "A98", "A99"],
@@ -51,19 +52,25 @@ MongoClient.connect(url, function(err, db) {
 })
 
 function mongoSearch(searchValue, limit, cb) {
-  mongoMetaDB.find({
+  var query = {
     $text: {
       $search: searchValue
     }
-  }, {
+  };
+  var proj = {
+    score: {
+      $meta: "textScore"
+    },
+    "NAME": 1
+  };
+  var sort = {
     score: {
       $meta: "textScore"
     }
-  }).sort({
-    score: {
-      $meta: "textScore"
-    }
-  }).limit(limit).toArray(function(err, docs) {
+  };
+  //console.log('typeahead', query, sort, proj);
+
+  mongoMetaDB.find(query, proj).sort(sort).limit(limit).toArray(function(err, docs) {
     cb(docs);
   });
 }
@@ -72,7 +79,20 @@ function mongoSearch(searchValue, limit, cb) {
 
 app.get('/typeaheadNames', function(req, res) {
   var q = req.query.q;
-  mongoSearch(q, perpage, function(results){
+
+  var subwords = q.split(' ');
+  if(subwords.length > maxWords){
+    var newq = [];
+    for(var i=0;i<maxWords;i++){
+      newq.push(subwords[i]);
+    }
+    q = newq.join(' ');
+  }
+
+  console.time('typeahead');
+  mongoSearch(q, 8, function(results){
+    console.timeEnd('typeahead');
+    //console.log(results);
     res.send(results);
   });
 })
@@ -86,7 +106,7 @@ app.get('/zipCodes', function(req, res) {
   try{
     query['ZIP'] = new RegExp("^"+q, "");
 
-    mongoMetaDB.aggregate([{$match: query}, {$group:{_id:"$ZIP", ZIP:{$addToSet:"$ZIP"}}},{$limit:8}]).toArray(function(err, docs) {
+    mongoMetaDB.aggregate([{$match: query}, {$project: {"ZIP":1}}, {$group:{_id:"$ZIP", ZIP:{$addToSet:"$ZIP"}}},{$limit:8}]).maxTimeMS(1000).toArray(function(err, docs) {
       if(err){
         console.log('error', err);
         res.send([]);
@@ -106,10 +126,11 @@ app.get('/cityNames', function(req, res) {
   var q = req.query.q;
   var query = {};
   var proj = {};
+  q = q.toUpperCase()
   try{
-    query['CITY'] = new RegExp("^"+q, "i");
+    query['CITY'] = new RegExp("^"+q, "");
 
-    mongoMetaDB.aggregate([{$match: query}, {$group:{_id:"$CITY", CITY:{$addToSet:"$CITY"}}},{$limit:8}]).toArray(function(err, docs) {
+    mongoMetaDB.aggregate([{$match: query}, {$project: {"CITY":1}}, {$group:{_id:"$CITY", CITY:{$addToSet:"$CITY"}}},{$limit:8}]).maxTimeMS(1000).toArray(function(err, docs) {
       if(err){
         console.log('error', err);
         res.send([]);
@@ -126,7 +147,16 @@ app.get('/cityNames', function(req, res) {
 
 
 app.get('/getSamples', function(req, res) {
-  mongoMetaDB.aggregate([{$sample:{size:perpage}}]).toArray(function(err, docs) {
+  var proj = {
+    "EIN": 1,
+    "NAME": 1,
+    "CITY": 1,
+    "STATE": 1,
+    "INCOME_AMT": 1,
+    "REVENUE_AMT": 1,
+    "ASSET_AMT": 1
+  };
+  mongoMetaDB.aggregate([{$sample:{size:perpage}}, {$project: proj}]).maxTimeMS(1000).toArray(function(err, docs) {
     res.send(docs);
   });
 })
@@ -183,10 +213,32 @@ app.get('/getResults', function(req, res) {
   var page = req.query.p;
 
   var query = {};
-  var proj = {};
+  var proj = {
+    "EIN": 1,
+    "NAME": 1,
+    "CITY": 1,
+    "STATE": 1,
+    "INCOME_AMT": 1,
+    "REVENUE_AMT": 1,
+    "ASSET_AMT": 1
+  };
   var sort = {};
 
+  console.time('query');
+
   if(q.name){
+
+    var subwords = q.name.split(' ');
+    if(subwords.length > maxWords){
+      var newq = [];
+      for(var i=0;i<maxWords;i++){
+        newq.push(subwords[i]);
+      }
+      q.name = newq.join(' ');
+    }
+
+    console.log(q.name);
+
     sort['score'] = {
       $meta: 'textScore'
     };
@@ -200,10 +252,10 @@ app.get('/getResults', function(req, res) {
     }
   }
   if(q.city){
-    query['CITY'] = q.zip;
+    query['CITY'] = q.city.toUpperCase();
   }
   if(q.state){
-    query['STATE'] = q.state;
+    query['STATE'] = q.state.toUpperCase();
   }
   if(q.zip){
     query['ZIP'] = q.zip;
@@ -231,9 +283,10 @@ app.get('/getResults', function(req, res) {
     }
   }
 
-//console.log(query, sort, proj);
+  //console.log('query', query, sort, proj);
 
   mongoMetaDB.find(query, proj).sort(sort).skip( (page) * perpage ).limit(perpage).toArray(function(err, docs) {
+    console.timeEnd('query');
     if(err){
       console.log('error', err);
       res.send([]);
@@ -245,112 +298,3 @@ app.get('/getResults', function(req, res) {
 })
 
 app.listen(8080);
-
-
-
-
-
-
-
-/*
-indexOfSearchWithIndex(q, searchMeta, key, perpage * (page - 1), perpage * (page), function(results) {
-  //console.log(results);
-
-  res.send(results);
-});
-*/
-
-
-
-/*
-indexOfSearch(q, typeaheadNames, 10, function(results){
-  //console.log(results);
-  var retObj = [];
-  for(var i=0;i<results.length;i++){
-    retObj.push({name: results[i]});
-  }
-  res.send(retObj);
-});
-*/
-/*
-fuzzyFilterSearch(q, typeaheadNames, 10, function(results){
-  console.log(results);
-  var retObj = [];
-  for(var i=0;i<results.length;i++){
-    retObj.push({name: results[i]});
-  }
-  res.send(retObj);
-});
-*/
-
-/*
-var fs = require('fs');
-var fuzzyFilter = require('fuzzy-filter');
-var fuzzy = require('fuzzy');
-
-var typeaheadNames = [];
-var searchMeta = [];
-
-fs.readFile('data/names.json', 'utf8', function(err, data) {
-  if (err) {
-    return console.log(err);
-  }
-  typeaheadNames = JSON.parse(data);
-})
-
-fs.readFile('data/searchmeta.json', 'utf8', function(err, data) {
-  if (err) {
-    return console.log(err);
-  }
-  searchMeta = JSON.parse(data);
-})
-
-function indexOfSearch(searchValue, data, limit, cb) {
-  var results = [];
-  var q = searchValue.toLowerCase();
-  for (var i = 0; i < data.length; i++) {
-    var matchwith = data[i].toLowerCase();
-    if (matchwith.indexOf(q) !== -1) {
-      results.push(data[i]);
-      if (results.length >= limit) {
-        break;
-      }
-    }
-  }
-  //  console.log(results.length);
-  cb(results);
-}
-
-function indexOfSearchWithIndex(searchValue, data, key, lower, upper, cb) {
-  var results = [];
-  if (typeof searchValue === 'string') {
-    var q = searchValue.toLowerCase();
-  } else {
-    var q = searchValue;
-  }
-
-  for (var i = 0; i < data.length; i++) {
-    if (typeof searchValue === 'string') {
-      var matchwith = data[i][key].toLowerCase();
-    } else {
-      var matchwith = data[i][key];
-    }
-    if (matchwith.indexOf(q) !== -1) {
-      results.push(data[i]);
-    }
-  }
-  cb(results.slice(lower, upper));
-}
-
-function fuzzyFilterSearch(searchValue, data, limit, cb) {
-  var results = fuzzyFilter(searchValue, data);
-  //console.log(results.length);
-  cb(results.slice(1, limit));
-}
-
-function fuzzySearch(searchValue, data, limit, cb) {
-  var results = fuzzy.filter(searchValue, data);
-  //console.log(results.length);
-  cb(results.slice(1, limit));
-}
-*/

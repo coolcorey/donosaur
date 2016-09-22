@@ -1,5 +1,4 @@
 <style scoped>
-
 .fade-search {
     background: rgba(255, 255, 255, 0.8);
     transition: background 0.3s;
@@ -225,8 +224,7 @@ export default {
 
         $('#nameTypeahead').typeahead({
             source: function(query, process) {
-                if (query.length < 3) return [];
-                _this.$http.get('http://localhost:80/typeaheadNames?q=' + query).then((response) => {
+                _this.$http.get('http://donosaur.org/api/typeaheadNames?q=' + query).then((response) => {
                     // success callback
                     //console.log(response)
                     var data = response.data;
@@ -237,6 +235,8 @@ export default {
                 });
             },
             autoSelect: false,
+            delay: 300,
+            minLength: 3,
             displayText: function(item) {
                 return _this.toTitleCase(item.NAME)
                     //return '<strong>' + _this.toTitleCase(item.NAME) + '</strong> <small>' + _this.toTitleCase(item.CITY) + ', ' + _this.toTitleCase(item.STATE) + '</small>'
@@ -253,7 +253,7 @@ export default {
         $('#zipTypeahead').typeahead({
             source: function(query, process) {
                 if (query.length < 3) return [];
-                _this.$http.get('http://localhost:80/zipCodes?q=' + query).then((response) => {
+                _this.$http.get('http://donosaur.org/api/zipCodes?q=' + query).then((response) => {
                     // success callback
                     var data = response.data;
                     return process(data);
@@ -263,6 +263,8 @@ export default {
                 });
             },
             autoSelect: true,
+            delay: 300,
+            minLength: 3,
             displayText: function(item) {
                 return item._id;
             },
@@ -271,7 +273,7 @@ export default {
         $('#cityTypeahead').typeahead({
             source: function(query, process) {
                 if (query.length < 3) return [];
-                _this.$http.get('http://localhost:80/cityNames?q=' + query).then((response) => {
+                _this.$http.get('http://donosaur.org/api/cityNames?q=' + query).then((response) => {
                     // success callback
                     //console.log(response)
                     var data = response.data;
@@ -282,6 +284,8 @@ export default {
                 });
             },
             autoSelect: true,
+            delay: 300,
+            minLength: 3,
             displayText: function(item) {
                 return _this.toTitleCase(item._id);
             },

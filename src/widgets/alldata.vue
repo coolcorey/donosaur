@@ -137,6 +137,7 @@ export default {
     },
     filters:{
       'searchFilter': function(rows, search){
+        if(!rows || !search) return {};
         var keys = Object.keys(rows);
         if(!search || search == ''){
           return rows;

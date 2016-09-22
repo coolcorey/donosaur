@@ -141,7 +141,7 @@
 
 <script>
 
-import searchbox from './searchbox.vue'
+import searchbox from './SearchBox.vue'
 import images from './images.js'
 var grid = null;
 
@@ -157,7 +157,7 @@ export default {
                 this.noneFound = false;
             }
 
-            if (this.page > 0 && results.length === 0) {
+            if (this.page > 0 && (results.length === 0 || results.length < 50)) {
                 this.noMore = true;
             } else {
                 this.noMore = false;
@@ -183,7 +183,7 @@ export default {
                 this.noneFound = false;
             }
             if (query.sample === true) {
-                this.$http.get('http://localhost:80/getSamples').then((response) => {
+                this.$http.get('api/getSamples').then((response) => {
                     // success callback
                     //console.log(response)
                     NProgress.done();
@@ -194,7 +194,7 @@ export default {
                 });
             } else {
                 delete query.sample;
-                this.$http.get("http://localhost:80/getResults?q=" + encodeURIComponent(JSON.stringify(query)) + "&p=" + this.page).then((response) => {
+                this.$http.get("api/getResults?q=" + encodeURIComponent(JSON.stringify(query)) + "&p=" + this.page).then((response) => {
                     console.log(response);
                     NProgress.done();
                     this.updateResults(response.data);

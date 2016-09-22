@@ -79,10 +79,10 @@ MongoClient.connect(url, function(err, db) {
 
 
   async.eachSeries([
-    //'eo1.csv',
-    'eo2.csv',
-    //'eo3.csv',
-    //'eo4.csv'
+    //'../../data/eo1.csv',
+    //'../../data/eo2.csv',
+    '../../data/eo3.csv',
+    '../../data/eo4.csv'
   ], function(file, cb){
     fs.readFile(file, 'utf8', function(err, data){
       var lines = data.split('\n');

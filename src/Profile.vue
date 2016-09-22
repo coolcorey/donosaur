@@ -171,7 +171,7 @@ export default {
         getData: function(year) {
             var _this = this;
             if (!this['tax' + year]) {
-                this.$http.get('http://localhost:80/getTaxByEIN?y=' + year + '&ein=' + this.ein).then((response) => {
+                this.$http.get('http://donosaur.org/api/getTaxByEIN?y=' + year + '&ein=' + this.ein).then((response) => {
                     // success callback
                     console.log(response.data);
                     _this.data['tax' + year] = response.data;
@@ -188,7 +188,7 @@ export default {
         },
         getMeta: function() {
             var _this = this;
-            this.$http.get('http://localhost:80/getMetaByEIN?&ein=' + this.ein).then((response) => {
+            this.$http.get('http://donosaur.org/api/getMetaByEIN?&ein=' + this.ein).then((response) => {
                 // success callback
                 console.log(response.data);
                 _this.data['meta'] = response.data[0];

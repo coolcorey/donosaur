@@ -2,7 +2,6 @@
 var MongoClient = require('mongodb').MongoClient;
 
 fs = require('fs');
-async = require('async');
 csv = require("fast-csv");
 
 //--max_old_space_size=4096
@@ -30,7 +29,7 @@ var count = 0;
 var do990 = function(collection, db){
   var allData = [];
   var type = "990";
-  var filepath = type + "/20" + year + "/py" + year + "_" + type + ".dat";
+  var filepath = "../../data/py" + year + "_" + type + ".dat";
   var stream = fs.createReadStream(filepath);
   var csvStream = csv({trim:true, ignoreEmpty:true, headers:true, delimiter:' '})
       .on("data", function(data){
@@ -65,7 +64,7 @@ var do990 = function(collection, db){
 var do990EZ = function(collection, db){
   var allData = [];
   var type = "990EZ";
-  var filepath = type + "/20" + year + "/py" + year + "_" + type + ".dat";
+  var filepath = "../../data/py" + year + "_" + type + ".dat";
   var stream = fs.createReadStream(filepath);
   var csvStream = csv({trim:true, ignoreEmpty:true, headers:true, delimiter:' '})
       .on("data", function(data){
@@ -135,7 +134,7 @@ var do990EZ = function(collection, db){
 var do990PF = function(collection, db){
   var allData = [];
   var type = "990PF";
-  var filepath = type + "/20" + year + "/py" + year + "_" + type + ".dat";
+  var filepath = "../../data/py" + year + "_" + type + ".dat";
   var stream = fs.createReadStream(filepath);
   var csvStream = csv({trim:true, ignoreEmpty:true, headers:true, delimiter:' '})
       .on("data", function(data){

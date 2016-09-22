@@ -18,6 +18,10 @@
 
     <style>
 
+    #nprogress .bar {
+      height: 4px !important;
+    }
+
     .widget-content{
       padding-left:10px;
       padding-right: 10px;
@@ -135,7 +139,7 @@
       }
 
       .artist-title a {
-          test-decoration: none;
+          text-decoration: none;
           font-size: 21px;
           font-family: arial, san-serif;
           color: #555;
@@ -286,8 +290,8 @@
   <body>
     <div id="app">
       <navbar></navbar>
-      <div class="container-fluid" style="margin-top:75px;">
-        <router-view class="test" transition="fade" transition-mode="out-in"></router-view>
+      <div class="container" style="margin-top:75px;">
+        <router-view transition="fade" transition-mode="out-in"></router-view>
       </div>
     </div>
     <script src="dist/build.js"></script>
