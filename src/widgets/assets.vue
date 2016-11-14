@@ -11,7 +11,7 @@ canvas {
 
 <div>
     <div class="widget-header">
-        <h6>Assets and Liabilities</h6>
+        <h6><i class="fa fa-money text-warning" aria-hidden="true"></i> Assets and Liabilities</h6>
     </div>
     <div class="widget-content">
         <canvas id="assetsChart"></canvas>
@@ -57,6 +57,9 @@ export default {
                     }
                 }
 
+                var colors = Please.make_color({
+                	colors_returned: Object.keys(datasetObj).length
+                });
 
                 for (var type in datasetObj) {
 
@@ -85,7 +88,7 @@ export default {
                     datasets.push({
                         label: datasetObj[type].label,
                         data: datasetObj[type].data,
-                        backgroundColor: donosaurColors[datasetIter]
+                        backgroundColor: colors[datasetIter]
                     })
                     datasetIter++;
                 }

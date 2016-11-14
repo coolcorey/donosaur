@@ -1,0 +1,283 @@
+.grid-stack-item-content{
+    background: rgba(240, 248, 255, 0.62);
+}
+
+.grid-stack-item-content > div {
+  height: 98%;
+  overflow: hidden;
+}
+
+.truncate {
+    width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#nprogress .bar {
+  height: 4px !important;
+}
+
+.widget-content{
+  padding-left:10px;
+  padding-right: 10px;
+  height:90%;
+  width:100%;
+}
+
+.widget-header {
+  //height:10%;
+  padding: 10px;
+  //text-align: right;
+  border-bottom: 1px dotted #ffffff;
+  color: #316c66;
+}
+
+.mcard {
+  -webkit-box-shadow: 0px 0px 4px 2px rgba(255,255,255,0.5);
+  -moz-box-shadow: 0px 0px 4px 2px rgba(255,255,255,0.5);
+  box-shadow: 0px 0px 4px 2px rgba(255,255,255,0.5);
+}
+
+.padded-text{
+  padding:15px;
+}
+
+  .nav-link.active {
+    color:rgba(0, 133, 255, 0.88) !important;
+  }
+  .fade-transition {
+    transition: opacity .3s ease;
+  }
+  .fade-enter, .fade-leave {
+    opacity: 0;
+  }
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+  body {
+    //background: #115C54;
+    background: rgb(101, 169, 162);
+    /* For browsers that do not support gradients */
+    //background: -webkit-linear-gradient(top, #115C54, #A4F2D0);
+    /* For Safari 5.1 to 6.0 */
+    //background: -o-linear-gradient(bottom, #115C54, #A4F2D0);
+    /* For Opera 11.1 to 12.0 */
+    //background: -moz-linear-gradient(bottom, #115C54, #A4F2D0);
+    /* For Firefox 3.6 to 15 */
+    //background: linear-gradient(to bottom, #115C54, #A4F2D0);
+    /* Standard syntax */
+    //background-color: #ECEFF1;
+    //color: #FFFFFF;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+  }
+  h1,
+  h2,
+  h3 {
+    font-weight: 200;
+  }
+  .container {
+    background: transparent !important;
+  }
+
+
+
+  .card {
+      margin-bottom: 2px;
+  }
+
+  @media (max-width: 767px) {
+      .mcard {
+          width: 100% !important;
+          margin-left: -5px !important;
+      }
+      .mcards {
+          width: 100% !important;
+      }
+      .search-box {
+          padding-right: 0px;
+          padding-left: 0px;
+      }
+  }
+
+  .artist-title {
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .container {
+      background-color: #f1f1f1;
+  }
+
+  .watch-card {
+      //margin-top: 5px;
+      //margin-bottom: 5px;
+      //margin-left: 5px;
+      //margin-right: 5px
+  }
+
+  //.watch-card > div{max-width:300px;}
+  .watch-card:hover .artist-title a,
+  .watch-card:hover .listing-tab .tab-content ul li a {
+      color: #167ac9;
+  }
+
+  .listing-tab .tab-content ul li:hover {
+      cursor: pointer;
+      text-decoration: underline;
+  }
+
+  .artist-title {
+      padding: 15px;
+      background: #fff;
+  }
+
+  .artist-title a {
+      text-decoration: none;
+      font-size: 21px;
+      font-family: arial, san-serif;
+      color: #555;
+  }
+
+  .artist-title a:hover {
+      color: #16a3de;
+  }
+
+  .artist-collage img {
+      max-width: 100%;
+  }
+
+  .artist-collage {
+      position: relative;
+      max-height: 150px;
+      overflow: hidden;
+  }
+
+  .artist-collage,
+  .artist-collage div {
+      padding: 0;
+  }
+
+  span.play-mix {
+      position: absolute;
+      top: 38%;
+      z-index: 9;
+      left: 30%;
+      border: 3px solid rgba(255, 255, 255, .25);
+  }
+
+  span.btn.play-mix-btn {
+      background-color: #000;
+      padding: 5px 12px;
+      border: none;
+      border-radius: 2px;
+      box-shadow: 0 0 70px rgba(255, 255, 255, .5);
+  }
+
+  .collage-rhs img {
+      margin-top: -5px;
+  }
+
+  span.play-mix-btn:hover {
+      box-shadow: 0 0 80px rgba(255, 255, 255, .9);
+  }
+
+  .listing-tab {
+      padding: 0;
+  }
+
+  .related-artist .artist-next {
+      padding-left: 0;
+  }
+
+  .related-artist .col-md-12 {
+      padding-right: 0;
+  }
+
+  .play-mix-btn span {
+      color: #1775bc;
+  }
+
+  .related-artist img {
+      width: 100%;
+  }
+
+  .related-artist h3 {
+      font-size: 17px;
+      margin-left: 15px;
+      margin-top: 9px;
+  }
+
+  .related-artist {
+      overflow: hidden;
+      padding-bottom: 10px;
+      padding-top: 10px;
+  }
+
+  .listing-tab .tab-content ul {
+      padding: 0;
+      margin: 0;
+  }
+
+  .listing-tab .tab-content ul li {
+      list-style-type: none;
+      border-bottom: 1px solid #eee;
+      padding: 8px;
+  }
+
+  .listing-tab .tab-content ul li {
+      list-style-type: none;
+      border-bottom: 1px solid #eee;
+      padding: 8px;
+      padding-left: 20px;
+      font-size: 13px;
+      color: #666;
+  }
+
+  .listing-tab .tab-content ul li a {
+      text-decoration: none;
+      color: #666;
+  }
+
+  .listing-tab .tab-content ul li span {
+      display: inline-block;
+      float: right;
+      padding-right: 10px;
+  }
+
+  .listing-tab .nav-tabs>li,
+  .nav-tabs>li a:hover {
+      margin-bottom: 0;
+      background: none;
+  }
+
+  .listing-tab .nav-tabs>li.active>a,
+  .nav-tabs>li.active>a:hover,
+  .nav-tabs>li.active>a:focus {
+      border: none;
+      background: none;
+  }
+
+  .listing-tab .nav-tabs>li>a:hover {
+      border-color: none;
+      color: red;
+  }
+
+  .listing-tab .nav-tabs>li>a {
+      border: 0;
+      padding: 17px 0 7px;
+      color: #333;
+      margin-left: 15px;
+  }
+
+  .listing-tab .nav-tabs>li.active>a {
+      border-bottom: 2px solid #bb0000;
+      color: #000;
+  }
+
+  .listing-tab {
+      background-color: #fff;
+  }

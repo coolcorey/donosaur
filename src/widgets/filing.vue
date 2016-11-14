@@ -4,7 +4,11 @@
 
 <div>
     <div class="widget-header">
-        <h6>Filing</h6>
+        <h6>
+          <i class="fa fa-file-text-o text-warning" aria-hidden="true"></i>
+          Filing
+          <span class="tag tag-info float-xs-right">{{dataL.doctype}}</span>
+        </h6>
     </div>
     <div class="widget-content" style="padding-top:25px;">
         <div v-if="dataL.meta">

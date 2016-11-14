@@ -12,7 +12,7 @@ canvas {
 
 <div>
     <div class="widget-header">
-        <h6>Income</h6>
+        <h6><i class="fa fa-money text-warning" aria-hidden="true"></i> Income</h6>
     </div>
     <div class="widget-content">
         <canvas id="incomeChart"></canvas>
@@ -48,6 +48,10 @@ export default {
                 var datasetIter = 0;
                 var datasets = [];
                 var datasetObj = {
+                    'invstmntinc': {
+                        data: [],
+                        label: 'Investment'
+                    },
                     'netincfndrsng': {
                         data: [],
                         label: 'Fundraising'
@@ -66,6 +70,10 @@ export default {
                     }
                 }
 
+
+                var colors = Please.make_color({
+                	colors_returned: Object.keys(datasetObj).length
+                });
 
                 for (var type in datasetObj) {
 
@@ -94,7 +102,7 @@ export default {
                     datasets.push({
                         label: datasetObj[type].label,
                         data: datasetObj[type].data,
-                        backgroundColor: donosaurColors[datasetIter]
+                        backgroundColor: colors[datasetIter]
                     })
                     datasetIter++;
                 }

@@ -8,7 +8,7 @@
 
 <div>
     <div class="widget-header">
-        <h6>Mission</h6>
+        <h6><i class="fa fa-file-text-o text-warning" aria-hidden="true"></i>  Mission</h6>
     </div>
     <div class="widget-content" style="padding-top:25px;">
         <div v-if="dataL.meta && dataL.meta.mission">

@@ -10,7 +10,7 @@ a[disabled="disabled"] {
 
 <div>
     <div class="widget-header">
-        <h6>Social Media</h6>
+        <h6><i class="fa fa-share-square-o text-warning" aria-hidden="true"></i> Social Media</h6>
     </div>
     <div style="text-align: center;padding-top:25px" class="widget-content">
         <a href="{{dataL.facebook}}" :disabled="dataL.facebook">

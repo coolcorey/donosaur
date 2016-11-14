@@ -15,7 +15,7 @@ img {
 
 <div>
     <div class="widget-header">
-        <h6>Location</h6>
+        <h6><i class="fa fa-map-marker text-warning" aria-hidden="true"></i> Location</h6>
     </div>
     <div class="widget-content" style="padding:0;">
         <div id="gmap_display" style="height:100%; width:100%;max-width:100%;" v-if="mapsurl">

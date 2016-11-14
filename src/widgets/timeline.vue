@@ -144,7 +144,7 @@
 
 <div>
     <div class="widget-header">
-        <h6>Timeline and Events</h6>
+        <h6><i class="fa fa-calendar-o text-warning" aria-hidden="true"></i> Timeline and Events</h6>
     </div>
     <div class="widget-content">
         <div class="timeline-container">

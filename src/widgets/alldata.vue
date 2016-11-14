@@ -12,7 +12,7 @@
 
 <div>
     <div class="widget-header">
-        <h6>Raw Data</h6>
+        <h6><i class="fa fa-table text-warning" aria-hidden="true"></i> Raw Data</h6>
     </div>
     <div class="widget-content" v-if="alldone">
 
